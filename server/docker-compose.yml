@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+    web:
+        build: .
+        ports:
+            - "8181:8080"
+        volumes:
+            - .:/app
+        depends_on:
+            - redis
+            - db
+
+    db:
+        image: 'rethinkdb:latest'
+        ports:
+            - '9090:8080'
+            - '28015:28015'
+            - '29015:29015'
+        volumes:
+            - './db_data:/data'
+        command:
+            - rethinkdb
+            - '--initial-password'
+            - '${DB_PASS}'
+            - '--bind'
+            - all
+
+    redis:
+        image: redis:alpine
+        command: redis-server --requirepass '${REDIS_PASS}'
+        ports:
+            - "6379:6379"
+        environment:
+            - REDIS_REPLICATION=master

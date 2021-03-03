@@ -1,8 +1,10 @@
 FROM python:3.6-alpine
 
-COPY . /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE 8080
-CMD ["python", "app/server.py"]
+RUN pip install --upgrade pip
 
+WORKDIR /server
+
+COPY . /server
+RUN pip install -r requirements.txt
+
+CMD python server.py

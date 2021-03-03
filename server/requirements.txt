@@ -1,1 +1,4 @@
 flask
+redis
+python-dotenv
+Flask-JSON

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="search" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Movie</title>
+</head>
+<body>
+<header class="navbar navbar-expand-md bd-navbar">
+    <nav class="navbar navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+          <span class="navbar-text">
+            Movie Metadata
+          </span>
+        </div>
+    </nav>
+</header>
+<div class="container-xxl mt-5 bd-layout">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-8">
+            <div class="search" style="width: 400px">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Movie title" aria-label="Movie title" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="button" id="search-meta">Search</button>
+                </div>
+            </div>
+            <div class="alert alert-danger fade" role="alert">
+                please input a movie title!
+            </div>
+            <div id="metadata" class="d-lg-none">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://m.media-amazon.com/images/M/MV5BYTAwMTY5YjYtN2U1MC00ZGUxLWE2NzgtM2E1NDQ0Njk2ZWJhXkEyXkFqcGdeQXVyMTMxMTY0OTQ@._V1_UX182_CR0,0,182,268_AL_.jpg" class="card-img-top" alt="..." style="width: 200px; height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="movie-title">Movie title</h5>
+                        <p class="card-text">content</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Year:<span id="movie-year"></span></li>
+                        <li class="list-group-item">Votes:<span id="movie-votes"></span></li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Movie link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bd-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start fixed-bottom">
+    <div class="container">
+        <ul class="bd-footer-links ps-0 mb-3">
+            <li class="d-inline-block"><a href="https://github.com/ma-he-sh/MovieMetaPredict">GitHub</a></li>
+        </ul>
+        <p class="mb-0">Designed and built with all the love in the world by the Mahesh Ranaweera Kalu Arachchige and Lizhen Tang</p>
+        <p class="mb-0">@2021 </p>
+    </div>
+</footer>
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $('#search-meta').on('click',function(){
+        var searchTitle = $('.search input[type=text]').val().trim();
+        if(searchTitle===""){
+            $('.alert').removeClass('fade').addClass('show');
+            return;
+        }else{
+            $('.alert').removeClass('show').addClass('fade');
+        }
+        $.ajax({
+            url: "http://localhost:8080/api/user/movie",
+            beforeSend: function( xhr ) {
+                console.log(1);
+                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+            }
+        })
+            .done(function( data ) {
+                if ( console && console.log ) {
+                    console.log( "Sample of data:", data.slice( 0, 100 ) );
+                }
+                var datajson = JSON.parse(data);
+                $('#movie-year').text(datajson.year);
+                $('#movie-title').text(datajson.title);
+                $('#movie-votes').text(datajson.votes);
+                $('#metadata').removeClass('d-lg-none').addClass('d-inline-block');
+            });
+    });
+</script>
+</body>
+</html>

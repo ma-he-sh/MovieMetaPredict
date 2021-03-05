@@ -1,5 +1,9 @@
 ## Setup
 
+## BUILD
+```sh
+make build
+```
 
 ## Local development
 ```sh

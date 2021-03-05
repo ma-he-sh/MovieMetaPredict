@@ -5,11 +5,13 @@ import os
 import sys
 
 from modules.db import DB
+from modules.redis import REDIS
+from config import APP_CONFIG
 
 dbconn = DB()
 dbconn.create_table()
 
-from config import APP_CONFIG
+redisConn = REDIS()
 
 app = Flask(__name__)
 FlaskJSON(app)

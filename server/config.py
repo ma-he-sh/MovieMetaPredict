@@ -16,6 +16,7 @@ APP_CONFIG = {
     'REDIS' : {
         'REDIS_HOST' : os.getenv('REDIS_HOST'),
         'REDIS_PASS' : os.getenv('REDIS_PASS'),
+        'REDIS_PORT' : os.getenv('REDIS_PORT'),
     },
     'JWT_PASS' : os.getenv('JWT_PASS'),
     'APP_SALT' : os.getenv('APP_SALT'),

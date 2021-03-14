@@ -4,3 +4,6 @@ rethinkdb
 python-dotenv
 Flask-JSON
 Flask-Cors
+beautifulsoup4
+requests
+pandas

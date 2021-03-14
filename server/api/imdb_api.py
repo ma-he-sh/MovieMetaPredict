@@ -72,9 +72,10 @@ class IMDB_MOVIE():
                         name['actor_link'] = actor['href']
 
                         character_name = tditem[3].find('a', href=True)
-                        name['character'] = character_name.text.strip()
-                        name['character_link'] = character_name['href']
-                        cast_list.append( name )
+                        if character_name is not None:
+                            name['character'] = character_name.text.strip()
+                            name['character_link'] = character_name['href']
+                            cast_list.append( name )
 
                 self.movie['meta']['cast'] = cast_list
 
@@ -97,8 +98,9 @@ class IMDB_MOVIE():
                     b_headling = block.find('h4', class_='inline')
                     b_content  = block.find('span')
 
-                    if 'Certificate' in b_headling.text.strip():
-                        self.movie['meta']['rating'] = b_content.text.strip()
+                    if b_headling is not None:
+                        if 'Certificate' in b_headling.text.strip():
+                            self.movie['meta']['rating'] = b_content.text.strip()
 
     def get_a_tags_arr(self, b_heading, block):
         if block is None:

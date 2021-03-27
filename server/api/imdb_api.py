@@ -157,8 +157,15 @@ class IMDB_MOVIE():
         movie_title = title_wrapper.find('h1').text.strip().replace(u'\xa0', u':').split(':')
 
         self.movie['title'] = movie_title[0]
-        self.movie['year']  = movie_title[1]
+        self.movie['year']  = int(movie_title[1].replace('(','').replace(')', ''))
         self.movie['description'] = plot_summary.find('div', 'summary_text').text.strip()
+
+        # self.movie['genre'] = main_top_section.find('span', )
+        # try:    
+        #     contentRating = title_wrapper.find('')
+        # except TypeError:
+        #     contentRating = 
+        # self.movie['content_rate']= title_wrapper.find()
 
         self.cast_data(main_bottom_section)
 

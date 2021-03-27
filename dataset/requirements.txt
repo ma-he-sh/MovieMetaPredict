@@ -1,1 +1,8 @@
+beautifulsoup4
+bs4
+numpy
 pandas
+requests
+requests_html
+wheel
+nltk

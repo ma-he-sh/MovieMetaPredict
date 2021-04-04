@@ -1,9 +1,10 @@
 pandas
 sklearn
-numpy
 jupyter
 Tensorflow
 keras
 matplotlib
 seaborn
 pickle-mixin
+numpy==1.19.5
+pydot

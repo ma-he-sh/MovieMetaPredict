@@ -3,3 +3,4 @@ dataset
 dataset_cleaned_emotions
 dataset_emotions
 rtt_dataset
+data/checkpoint
